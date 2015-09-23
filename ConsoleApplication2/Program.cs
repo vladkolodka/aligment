@@ -67,7 +67,7 @@ namespace ConsoleApplication2
 
                 int fixer = line.Count <= 1 ? 2 : line.Count;
                 // получаем строку с необходимым клюичеством пробелов
-                string spaces = " ";
+                string spaces = getSymbols((N - count) / (fixer - 1), ' ');
 
                 for(int j = 0; j < line.Count; j++)
                 {
