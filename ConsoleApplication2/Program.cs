@@ -17,6 +17,7 @@ namespace ConsoleApplication2
         private int N;
         private string In;
         private string Out;
+        private char symbol = ' ';
 
         static void Main(string[] args)
         {
@@ -32,7 +33,12 @@ namespace ConsoleApplication2
 
             // формируем строку
             createString();
-            Console.WriteLine(Out);              
+
+            // проверка
+            Console.WriteLine(getSymbols(N, '#'));
+            Console.WriteLine(Out);
+
+            File.WriteAllText(file_out, Out);           
         }
         private string getSymbols(int count, char symbol)
         {
@@ -67,11 +73,15 @@ namespace ConsoleApplication2
 
                 int fixer = line.Count <= 1 ? 2 : line.Count;
                 // получаем строку с необходимым клюичеством пробелов
-                string spaces = getSymbols((N - count) / (fixer - 1), ' ');
+                double symbols_count = ((double)N - count) / (fixer - 1);
+                string spaces = getSymbols((int) symbols_count, symbol);
 
                 for(int j = 0; j < line.Count; j++)
                 {
                     Out += line[j];
+
+                    if (j + 2 == line.Count && (int) symbols_count != symbols_count)
+                        Out += symbol;
                     if (j + 1 == line.Count) Out += '\n';
                     else Out += spaces;
                 }
