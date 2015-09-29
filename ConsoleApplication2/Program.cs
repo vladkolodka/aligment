@@ -35,7 +35,6 @@ namespace ConsoleApplication2
             createString();
 
             // проверка
-            Console.WriteLine(getSymbols(N, '#'));
             Console.WriteLine(Out);
 
             File.WriteAllText(file_out, Out);           
@@ -51,8 +50,16 @@ namespace ConsoleApplication2
         }
         private void createString()
         {
+            
             // разбиваем строку на слова
             string[] words = In.Split(' ');
+
+            foreach(var word in words) {
+                if(word.Length > N) {
+                    Console.WriteLine("Ошибка! Текст не помещается в строку.");
+                    return;
+                }
+            }
 
             for (int i = 0; i < words.Length; i++)
             {
@@ -63,6 +70,7 @@ namespace ConsoleApplication2
                 // корректор количества пробелов
                 while (count + words[i].Length + (line.Count > 1 ? line.Count : 1) - 1 < N)
                 {
+
                     count += words[i].Length;
                     // добавляем слово в строку
                     line.Add(words[i]);
