@@ -37,7 +37,9 @@ namespace ConsoleApplication2
             // проверка
             Console.WriteLine(Out);
 
-            File.WriteAllText(file_out, Out);           
+            File.WriteAllText(file_out, Out);
+
+                       
         }
         private string getSymbols(int count, char symbol)
         {
@@ -79,7 +81,7 @@ namespace ConsoleApplication2
                     if (i == words.Length) break;
                 }
 
-                int fixer = line.Count <= 1 ? 2 : line.Count;
+                /*int fixer = line.Count <= 1 ? 2 : line.Count;
                 // получаем строку с необходимым клюичеством пробелов
                 double symbols_count = ((double)N - count) / (fixer - 1);
                 string spaces = getSymbols((int) symbols_count, symbol);
@@ -92,7 +94,21 @@ namespace ConsoleApplication2
                         Out += symbol;
                     if (j + 1 == line.Count) Out += '\n';
                     else Out += spaces;
+                }*/
+
+                int words_count = line.Count();
+                int spaces_count = N - count;
+
+                foreach(var word in line) {
+                    Out += word;
+                    words_count--;
+                    if(words_count != 0) {
+                        double spaces_to_add = Math.Round((double)spaces_count / words_count);
+                        Out += getSymbols((int)spaces_to_add, symbol);
+                        spaces_count -= (int)spaces_to_add;
+                    } else Out += "\n";
                 }
+
                 i--;
             }
         }
